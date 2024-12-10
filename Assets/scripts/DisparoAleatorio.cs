@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 
 public class DisparoAleatorio : MonoBehaviour
@@ -8,14 +9,38 @@ public class DisparoAleatorio : MonoBehaviour
 
     public GameObject posInicial;
     public GameObject posFinal;
+    public GameObject canyon;
 
     public GameObject prefabBala;
     GameObject balaInstanciada;
+
+    private int cerca = 5;
+
+    //Cambiar el color del cañon
+    public Renderer canyonRenderer;
+    public Color colorOriginal;
 
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    void Update()
+    {
+        if (balaInstanciada != null)
+        {
+            float distancia = Vector3.Distance(balaInstanciada.transform.position, canyon.transform.position);
+
+            if (distancia <= cerca)
+            {
+                canyonRenderer.material.color = Color.red;
+            }
+            else
+            {
+                canyonRenderer.material.color = colorOriginal;
+            }
+        }
     }
     private void OnMouseDown()
     {

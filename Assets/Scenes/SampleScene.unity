@@ -3310,7 +3310,10 @@ MonoBehaviour:
   action: DispararAleatorio
   posInicial: {fileID: 1332282021}
   posFinal: {fileID: 1163580722}
+  canyon: {fileID: 1554684593}
   prefabBala: {fileID: 8712743549988391386, guid: 995a2f61eef11814db587291adf04ddc, type: 3}
+  canyonRenderer: {fileID: 1554684595}
+  colorOriginal: {r: 0.47450984, g: 0.47450984, b: 0.4666667, a: 0}
 --- !u!1 &2133522936
 GameObject:
   m_ObjectHideFlags: 0

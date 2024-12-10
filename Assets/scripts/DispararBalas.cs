@@ -15,7 +15,7 @@ public class DispararBalas : MonoBehaviour
 
     //Distancia y fuerza
     public float fuerza = 10f;
-    private int cerca = 10;
+    private int cerca = 5;
 
     //Cambiar el color del cañon
     public Renderer canyonRenderer;
