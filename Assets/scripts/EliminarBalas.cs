@@ -14,13 +14,15 @@ public class EliminarBalas : MonoBehaviour
 
     private void OnMouseDown()
     {
+        //Se encuentran todos los objetos con el tag "Bala" y se eliminan.
         balas = GameObject.FindGameObjectsWithTag("Bala");
 
         foreach(GameObject bala in balas)
         {
             Destroy(bala);
         }
-        
+
+        //Se llama al gamemanager para que resetee el numero de balas en el texto del canva.
         GameManager.ResetearBalas();
     }
 }

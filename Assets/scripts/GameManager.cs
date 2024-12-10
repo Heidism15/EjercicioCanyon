@@ -5,13 +5,13 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    
     static public GameObject numBalasText;
     static int numBalas = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Se cambia el texto del canva
         numBalasText = GameObject.Find("TextoBalas");
 
         if (numBalasText != null)
@@ -24,13 +24,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //int contadorBalas = GameObject.FindGameObjectsWithTag("Bala").Length;
-
-        //contadorBalasTexto.text = "Balas: " + contadorBalas.ToString();
+        
     }
 
     public static void ResetearBalas()
     {
+        //Se resetea el texto del canva
         numBalas = 0;
         if (numBalasText != null)
         {
@@ -41,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     public static void IncNumBalas()
     {
+        //Se incrementa el numero del texto del canva
         numBalas++;
         if (numBalasText != null)
         { 
@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public static void DecNumBalas()
     {
+        //Se decrementa el numero del texto del canva
         numBalas--;
         if (numBalasText != null)
         { 

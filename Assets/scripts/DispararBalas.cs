@@ -31,6 +31,7 @@ public class DispararBalas : MonoBehaviour
     {
         if (balaInstanciada != null)
         {
+            //Se mide la distancia entre la bala y el cañon, y si esta muy cerca se cambia de color del cañon 
             float distancia = Vector3.Distance(balaInstanciada.transform.position, canyon.transform.position);
 
             if (distancia <= cerca)
@@ -46,6 +47,7 @@ public class DispararBalas : MonoBehaviour
 
     private void OnMouseDown()
     {
+        //Se instancia una bala y se hace que siga una trayectoria predeterminada. 
         balaInstanciada = Instantiate(prefabBala, posInicial.transform.position, Quaternion.identity);
 
         Rigidbody rb = balaInstanciada.GetComponent<Rigidbody>();
@@ -54,6 +56,7 @@ public class DispararBalas : MonoBehaviour
 
         rb.AddForce(direccion * fuerza, ForceMode.Impulse);
 
+        //Se llama al gamemanager para que incremente el numero de balas en el texto del canva.
         GameManager.IncNumBalas();
     }
 }

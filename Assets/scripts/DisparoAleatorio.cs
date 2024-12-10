@@ -30,6 +30,7 @@ public class DisparoAleatorio : MonoBehaviour
     {
         if (balaInstanciada != null)
         {
+            //Se mide la distancia entre la bala y el cañon, y si esta muy cerca se cambia de color del cañon
             float distancia = Vector3.Distance(balaInstanciada.transform.position, canyon.transform.position);
 
             if (distancia <= cerca)
@@ -46,6 +47,7 @@ public class DisparoAleatorio : MonoBehaviour
     {
         if(action == "DispararAleatorio")
         {
+            //Se instancia una bala con diferentes parametros random (fuerza, color y tamaño). 
             balaInstanciada = Instantiate(prefabBala, posInicial.transform.position, Quaternion.identity);
 
             float randomSize = Random.Range(0.5f, 2f);
@@ -60,7 +62,7 @@ public class DisparoAleatorio : MonoBehaviour
             Color[] coloresBasicos = { Color.red, Color.green, Color.blue, Color.yellow, Color.magenta };
             renderer.material.color = coloresBasicos[Random.Range(0, coloresBasicos.Length)];
         }
-
+        //Se llama al gamemanager para que incremente el numero de balas en el texto del canva.
         GameManager.IncNumBalas();
     }
 }
