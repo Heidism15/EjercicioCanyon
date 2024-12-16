@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 36c27e0e9b278eb4b9d57f7c9c375c34
+guid: 2fe8ebed925dda848876dfc3eec54c5d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - prefabDiana: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

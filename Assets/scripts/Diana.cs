@@ -10,11 +10,16 @@ public class Diana : MonoBehaviour
 
     //Color de la diana.
     private Renderer dianaRenderer;
+    public Color colorOriginal;
     public Color colorImpacto;
 
     //Rotacion de la diana.
     public float velocidadRotacion = 50f;
     private bool rotar = false;
+
+    //Referencias para spawnear las dianas
+    public Transform[] posicionesDianas;
+    public GameObject prefabDiana;
 
     // Start is called before the first frame update
     void Start()
@@ -54,10 +59,28 @@ public class Diana : MonoBehaviour
             }
             else if (cañonazos == 3)
             {
-                //Se destruye la diana.
-                Destroy(gameObject);
+                //Se reinicia el contador.
+                cañonazos = 0;
+
+                //se reinicia la rotacion
+                rotar = false;
+                transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
+
+                //se reinicia el color
+                dianaRenderer.material.color = colorOriginal;
+
+                //Se mueve la diana y se cuenta un punto.
+                MoverDianaAleatoria();
+                GameManager.IncDianas();
             }
         }
-                
+    }
+
+    private void MoverDianaAleatoria()
+    {
+        int indiceAleatorio = Random.Range(0, posicionesDianas.Length);
+        Transform nuevaPosicion = posicionesDianas[indiceAleatorio];
+
+        transform.position = nuevaPosicion.position;
     }
 }
