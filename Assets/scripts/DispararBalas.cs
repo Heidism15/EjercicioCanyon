@@ -2,15 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DispararBalas : MonoBehaviour
 {
+    public GameObject prefabBala;
     public GameObject posInicial;
     public GameObject posFinal;
     public GameObject canyon;
-    Rigidbody rb;
-
-    public GameObject prefabBala;
+    public AudioSource disparoAudio;
     GameObject balaInstanciada;
 
     // Distancia y fuerza
@@ -20,10 +20,9 @@ public class DispararBalas : MonoBehaviour
     public Renderer canyonRenderer;
     public Color colorOriginal;
 
-    // Potencia de disparo (controlada en este script)
-    public static float potenciaDisparo = 0f;  // Static para que GameManager lo pueda acceder
-
-    private bool isMouseDown = false;
+    // Potencia de disparo
+    public static float potenciaDisparo = 0f; // Static para que GameManager pueda acceder
+    private bool incrementarPotencia = false;
 
     // Start is called before the first frame update
     void Start()
@@ -49,42 +48,45 @@ public class DispararBalas : MonoBehaviour
         }
 
         // Si el mouse está presionado, aumentamos la potencia
-        if (isMouseDown)
+        if (incrementarPotencia)
         {
-            // Aumentamos la potencia gradualmente hasta un valor máximo
-            potenciaDisparo += Time.deltaTime * 10f; // Se incrementa la potencia con el tiempo
-            if (potenciaDisparo > 30f) potenciaDisparo = 30f;  // Limitar potencia
+            potenciaDisparo += Time.deltaTime * 10f; // Incrementar potencia
+            if (potenciaDisparo > 30f) potenciaDisparo = 30f; // Limitar la potencia
         }
     }
-
-    private void OnMouseDown()
+    public void IncPotencia()
     {
-        // Iniciar el disparo si el mouse está presionado
-        isMouseDown = true;
+        // Comienza a aumentar la potencia al presionar el botón
+        incrementarPotencia = true;
     }
 
-    private void OnMouseUp()
+    public void Disparar()
     {
-        // Al soltar el mouse, disparar la bala con la potencia actual
-        isMouseDown = false;
+        // Deja de aumentar la potencia y dispara la bala
+        incrementarPotencia = false;
 
-        // Se instancia una bala y se hace que siga una trayectoria predeterminada. 
+        // Instanciar la bala
         balaInstanciada = Instantiate(prefabBala, posInicial.transform.position, Quaternion.identity);
         Rigidbody rb = balaInstanciada.GetComponent<Rigidbody>();
 
         Vector3 direccion = (posFinal.transform.position - posInicial.transform.position).normalized;
-        rb.AddForce(direccion * potenciaDisparo, ForceMode.Impulse); // Usamos la potencia de disparo para el impulso
+        rb.AddForce(direccion * potenciaDisparo, ForceMode.Impulse); // Aplicar fuerza
 
-        // Se llama al GameManager para que incremente el número de balas en el texto del canvas
+        if (disparoAudio != null)
+        {
+            disparoAudio.Play();
+        }
+
+        // decirle al GameManager que se ha disparado una bala
         GameManager.IncNumBalas();
 
-        // Reiniciamos la potencia
-        potenciaDisparo = 0f;  // Resetear la potencia
+        //Reiniciar la potencia
+        potenciaDisparo = 0f;
 
         // Actualizamos el texto en GameManager
         if (GameManager.textoPotencia != null)
         {
-            GameManager.textoPotencia.text = "Potencia: " + potenciaDisparo;
+            GameManager.textoPotencia.text = " " + potenciaDisparo;
         }
     }
 }
